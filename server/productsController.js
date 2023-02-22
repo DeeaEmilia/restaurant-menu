@@ -1,6 +1,6 @@
 const productsModel = require('./productsModel')
 
-async function getProducts(req, res) {
+async function getProducts(_req, res) {
     try {
         const products = await productsModel.findAll()
 
