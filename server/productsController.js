@@ -1,8 +1,8 @@
-const Products = require('./productsModel')
+const productsModel = require('./productsModel')
 
 async function getProducts(req, res) {
     try {
-        const products = await Products.findAll()
+        const products = await productsModel.findAll()
 
         res.json(products)
 
@@ -11,6 +11,22 @@ async function getProducts(req, res) {
     }
 }
 
+async function getProductById(req, res) {
+    try {
+        const product = await productsModel.findById(req.params.id);
+
+        if (!product) {
+            res.status(404).json({ message: "Product not found!" })
+        }
+
+        res.json(product);
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 module.exports = {
     getProducts,
+    getProductById
 };

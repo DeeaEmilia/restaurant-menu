@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 // let products = require('./data/products.json');
 
-const {getProducts} = require('./productsController')
+const {getProducts, getProductById} = require('./productsController')
 
 const app = express();
 
@@ -24,5 +24,6 @@ app.use(express.json());
 // });
 
 app.get('/api/products', getProducts);
+app.get('/api/products/:id', getProductById);
 
 app.listen(5052, () => console.log('Server started'));
