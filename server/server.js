@@ -2,11 +2,15 @@ const express = require('express');
 const cors = require('cors');
 // let products = require('./data/products.json');
 
-const {getProducts, getProductById} = require('./productsController')
+const {getProducts, getProductById, deleteProduct} = require('./productsController')
 
 const app = express();
 
+//app.use foloseste un middlewear - o functie care intercepteaza requesturi
 app.use(express.json());
+
+
+
 // HTTP Verbs / methods
 // get - are nevoie doar de url (/api/products) si returneaza un raspuns
 // post - are nevoie de url si body (body-ul este un json); creeaza un nou entry
@@ -25,5 +29,6 @@ app.use(express.json());
 
 app.get('/api/products', getProducts);
 app.get('/api/products/:id', getProductById);
+app.delete('/api/products/:id', deleteProduct);
 
 app.listen(5052, () => console.log('Server started'));

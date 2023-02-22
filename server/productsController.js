@@ -17,9 +17,26 @@ async function getProductById(req, res) {
 
         if (!product) {
             res.status(404).json({ message: "Product not found!" })
+        } 
+        res.json(product);
+        
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+async function deleteProduct(req, res) {
+    try {
+        const productID = req.params.id
+        const product = await productsModel.findById(productID);
+
+        if (!product) {
+            res.status(404).json({ message: "Product not found!" })
         }
 
-        res.json(product);
+        await productsModel.remove(productID);
+        res.json(`Product ${product.name} with ID ${productID} was removed.`);
 
     } catch (error) {
         console.log(error);
@@ -28,5 +45,6 @@ async function getProductById(req, res) {
 
 module.exports = {
     getProducts,
-    getProductById
+    getProductById,
+    deleteProduct,
 };
