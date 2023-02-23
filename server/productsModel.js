@@ -4,36 +4,36 @@ const { v4: uuidv4 } = require('uuid'); //? import the uuid library
 
 //TODO This function returns a list of all products
 function findAll() {
-    // Resolve the Promise with the products list
-    return new Promise((resolve) => {
-      resolve(products);
-    });
-  }
+  // Resolve the Promise with the products list
+  return new Promise((resolve) => {
+    resolve(products);
+  });
+}
 
 //TODO This function finds a product in the list with the given ID and returns it
 function findById(id) {
-    // Find the product with the given ID in the products list
-    const foundProduct = products.find(p => p.id === id);
-  
-    // Resolve the Promise with the found product (which may be undefined if no matching product is found)
-    return new Promise((resolve) => {
-      resolve(foundProduct);
-    });
-  }
+  // Find the product with the given ID in the products list
+  const foundProduct = products.find((p) => p.id === id);
+
+  // Resolve the Promise with the found product (which may be undefined if no matching product is found)
+  return new Promise((resolve) => {
+    resolve(foundProduct);
+  });
+}
 
 //TODO This function removes a product with the given ID from the list of products
 function remove(id) {
-    // Filter the products list to remove the product with the given ID
-    products = products.filter(p => p.id !== id);
-  
-    // Write the updated list of products to a file
-    writeDataToFile(products);
-  
-    // Resolve the Promise with no value (i.e., undefined)
-    return new Promise((resolve) => {
-      resolve();
-    });
-  }
+  // Filter the products list to remove the product with the given ID
+  products = products.filter((p) => p.id !== id);
+
+  // Write the updated list of products to a file
+  writeDataToFile(products);
+
+  // Resolve the Promise with no value (i.e., undefined)
+  return new Promise((resolve) => {
+    resolve();
+  });
+}
 
 //TODO This function creates a new product
 function create(product) {
@@ -51,17 +51,34 @@ function create(product) {
     resolve(newProduct);
   });
 }
-  
+
+//TODO This function updates a product with the given ID in the list of products
+function update(id, product) {
+  return new Promise((resolve) => {
+    // Find the index of the product with the given ID in the products list
+    const index = products.findIndex((p) => p.id === id);
+
+    // Update the product at the given index with the new data
+    products[index] = { id, ...product };
+
+    // this adds the newly updated product to the products array
+    writeDataToFile(products);
+    
+    // resolve the Promise with the new product
+    resolve(products[index]);
+  });
+}
 
 //TODO This function writes the given content to a file
 function writeDataToFile(content) {
-    // Write the content to the products.json file
-    fs.writeFileSync('./data/products.json', JSON.stringify(content));
-  }
+  // Write the content to the products.json file
+  fs.writeFileSync('./data/products.json', JSON.stringify(content));
+}
 
 module.exports = {
-    findAll, 
-    findById, 
-    remove,
-    create,
+  findAll,
+  findById,
+  remove,
+  create,
+  update,
 };

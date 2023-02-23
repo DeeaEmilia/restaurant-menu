@@ -3,7 +3,13 @@ const express = require('express');
 const cors = require('cors');
 
 // Import the required functions from the productsController module
-const { getProducts, getProductById, deleteProduct, createProduct } = require('./productsController');
+const {
+    getProducts,
+    getProductById,
+    deleteProduct,
+    createProduct,
+    updateProduct,
+} = require('./productsController');
 
 // Create a new Express application
 const app = express();
@@ -19,6 +25,7 @@ app.get('/api/products', getProducts);
 app.get('/api/products/:id', getProductById);
 app.delete('/api/products/:id', deleteProduct);
 app.post('/api/products', createProduct);
+app.put('/api/products/:id', updateProduct)
 
 // Start the server and listen on port 5052
 app.listen(5052, () => console.log('Server started'));

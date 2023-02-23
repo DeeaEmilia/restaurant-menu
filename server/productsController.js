@@ -20,7 +20,7 @@ async function getProductById(req, res) {
 
     if (!product) {
       // If no matching product is found, send a 404 response with an error message
-      res.status(404).json({ message: "Product not found!" });
+      res.status(404).json({ message: 'Product not found!' });
     } else {
       // Otherwise, send a JSON response with the product object
       res.json(product);
@@ -38,7 +38,7 @@ async function deleteProduct(req, res) {
 
     if (!product) {
       // If no matching product is found, send a 404 response with an error message
-      res.status(404).json({ message: "Product not found!" });
+      res.status(404).json({ message: 'Product not found!' });
     } else {
       // Otherwise, delete the product from the database and send a success message
       await productsModel.remove(productID);
@@ -68,9 +68,43 @@ async function createProduct(req, res) {
   }
 }
 
+//TODO This function updates a product in the database and sends a JSON response
+async function updateProduct(req, res) {
+  try {
+    const productID = req.params.id;
+    // Find the product in the database with the given ID
+    const product = await productsModel.findById(productID);
+
+    if (!product) {
+      // If no matching product is found, send a 404 response with an error message
+      res.status(404).json({ message: 'Product not found!' });
+    } 
+
+    // destructure the relevant fields from the request body
+    const { name, image, ingredients, recipe } = req.body;
+
+    // create a new object with the updated product data
+    const updatedProductData = {
+      name: name || product.name,
+      image: image || product.image,
+      ingredients: ingredients || product.ingredients,
+      recipe: recipe || product.recipe,
+    };
+
+    // call the `update` method on the `productsModel` with the updated product data
+    const updatedProduct = await productsModel.update(productID, updatedProductData);
+    
+    // send a JSON response with the updated product
+    res.json(updatedProduct);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 module.exports = {
-    getProducts,
-    getProductById,
-    deleteProduct,
-    createProduct,
+  getProducts,
+  getProductById,
+  deleteProduct,
+  createProduct,
+  updateProduct,
 };
