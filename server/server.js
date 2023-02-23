@@ -1,34 +1,24 @@
+//TODO Import the required modules
 const express = require('express');
 const cors = require('cors');
-// let products = require('./data/products.json');
 
-const {getProducts, getProductById, deleteProduct} = require('./productsController')
+//TODO Import the required functions from the productsController module
+const { getProducts, getProductById, deleteProduct, createProduct } = require('./productsController');
 
+//TODO Create a new Express application
 const app = express();
 
-//app.use foloseste un middlewear - o functie care intercepteaza requesturi
+//TODO Enable CORS middleware
+app.use(cors());
+
+//TODO Enable JSON request body parsing middleware
 app.use(express.json());
 
-
-
-// HTTP Verbs / methods
-// get - are nevoie doar de url (/api/products) si returneaza un raspuns
-// post - are nevoie de url si body (body-ul este un json); creeaza un nou entry
-// put - are nevoie de url si body; updateaza un entry in functie de id-ul pe care il dam
-// delete - are nevoie de url; sterge un entry
-
-// app.get('/api/products', (req, res) => {
-//   res.json(products);
-// });
-
-// app.post('/api/products', (req, res) => {
-//   const product = req.body;
-//   console.log(product);
-//   res.json({ product });
-// });
-
+//TODO Register route handlers for the API endpoints
 app.get('/api/products', getProducts);
 app.get('/api/products/:id', getProductById);
 app.delete('/api/products/:id', deleteProduct);
+app.post('/api/products', createProduct);
 
+//TODO Start the server and listen on port 5052
 app.listen(5052, () => console.log('Server started'));
