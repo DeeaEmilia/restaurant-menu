@@ -1,4 +1,4 @@
-//TODO Import the `productsModel` module
+//? Import the `productsModel` module
 const productsModel = require('./productsModel');
 
 //TODO This function gets all products from the database and sends a JSON response
