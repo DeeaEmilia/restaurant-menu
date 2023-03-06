@@ -3,13 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="menu.ico" type="image/x-icon" />
     <link rel="stylesheet" href="styles/style.css" />
-    <title>Menu App</title>
-
+    <title>Recipe Book</title>
   </head>
-  <body>
-    <h1>Restaurant App</h1>
-   
-    <script type="module" src="main.js"></script>
+  <body onload="getMenu()">
+    <h1>Recipe Book</h1>
+    <section class="menu-container">
+      <div class="menu-content"></div>
+    </section>
+
+    <div class="modal">
+      <div class="modal-bg modal-exit"></div>
+      <div class="modal-container">
+        <button class="btn-close modal-exit">X</button>
+        <h2></h2>
+        <h3></h3>
+        <img src="" />
+        <p></p>
+      </div>
+    </div>
+
+    <script src="main.js"></script>
   </body>
 </html>

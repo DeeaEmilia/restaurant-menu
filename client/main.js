@@ -1,23 +1,36 @@
-import './style.css'
-import javascriptLogo from './javascript.svg'
-import { setupCounter } from './counter.js'
+const SERVER_URL = 'http://localhost:5052/api/products';
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
+async function getMenu() {
+  //apelam backendul
+  const payload = await fetch(SERVER_URL);
+  //prelucram ce gasim in backend
+  const result = await payload.json();
 
-setupCounter(document.querySelector('#counter'))
+  showMenu(result);
+}
+
+function showMenu(menu) {
+  let table = '';
+
+  menu.forEach((item) => {
+    table += `<div class="item-content" id=${item.id}>`;
+    table += `<div><h3>${item.name}</h3></div>`;
+    table += `<div><img src=${item.image} /></div></div>`;
+  });
+
+  document.querySelector('.menu-content').innerHTML = table;
+
+  const menuCards = document.querySelectorAll('.item-content');
+  menuCards.forEach(card => {
+    const itemId = card.getAttribute('id');
+    card.addEventListener('click', () => openModal(itemId));
+  });
+}
+
+function openModal(itemId) {
+  const modal = document.querySelector('.modal');
+  modal.classList.add('open');
+}
+
+
+
