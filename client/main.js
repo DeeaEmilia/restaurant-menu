@@ -42,8 +42,20 @@ async function openModal(itemId) {
   //prelucram ce gasim in backend
   const result = await payload.json();
 
-  console.log(result);
+  displayDetails(result);
 }
 
+function displayDetails(result) {
+  const name = document.querySelector('.modal-name');
+  const ingredients = document.querySelector('.modal-ingredients');
+  const image = document.querySelector('.modal-image');
+  const recipe = document.querySelector('.modal-recipe');
+
+  name.innerHTML = result.name;
+  ingredients.innerHTML = "Ingrediente: " + result.ingredients;
+  image.src = result.image;
+  recipe.innerHTML = result.recipe;
+
+}
 
 
