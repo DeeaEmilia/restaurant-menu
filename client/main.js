@@ -27,9 +27,22 @@ function showMenu(menu) {
   });
 }
 
-function openModal(itemId) {
+async function openModal(itemId) {
   const modal = document.querySelector('.modal');
   modal.classList.add('open');
+
+  const exitModal = document.querySelectorAll('.modal-exit');
+  exitModal.forEach(exit => {
+    exit.addEventListener('click', () => {
+      modal.classList.remove('open');
+    })
+  })
+
+  const payload = await fetch(`${SERVER_URL}/${itemId}`);
+  //prelucram ce gasim in backend
+  const result = await payload.json();
+
+  console.log(result);
 }
 
 
