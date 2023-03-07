@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="styles/style.css" />
     <title>Recipe Book</title>
   </head>
+
   <body onload="getMenu()">
     <h1>Recipe Book</h1>
     <section class="menu-container">
@@ -16,13 +17,49 @@
     <div class="modal">
       <div class="modal-bg modal-exit"></div>
       <div class="modal-container">
-        <button class="btn-close modal-exit">X</button>
+        <button class="btn-close modal-exit">&times;</button>
         <h2 class="modal-name"></h2>
         <p class="modal-ingredients"></p>
         <img class="modal-image" src="" />
         <p class="modal-recipe"></p>
+        <div class="modal-actions">
+          <button class="btn-edit">Edit</button>
+          <button class="btn-delete">Delete</button>
+        </div>
       </div>
     </div>
+
+    <div id="modal-edit" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Edit Item</h2>
+          <span class="modal-exit">&times;</span>
+        </div>
+        <form id="edit-form">
+          <div class="form-group">
+            <label for="edit-name">Name:</label>
+            <input type="text" id="edit-name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label for="edit-ingredients">Ingredients:</label>
+            <input type="text" id="edit-ingredients" name="ingredients" required>
+          </div>
+          <div class="form-group">
+            <label for="edit-image">Image URL:</label>
+            <input type="text" id="edit-image" name="image" required>
+          </div>
+          <div class="form-group">
+            <label for="edit-recipe">Recipe:</label>
+            <textarea id="edit-recipe" name="recipe" required></textarea>
+          </div>
+        </form>
+        <div class="modal-buttons">
+          <button class="btn-cancel modal-exit">Cancel</button>
+          <button class="btn-save">Save</button>
+        </div>
+      </div>
+    </div>
+      
 
     <script src="main.js"></script>
   </body>
