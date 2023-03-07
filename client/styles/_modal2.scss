@@ -68,14 +68,12 @@
       cursor: pointer;
       border: none;
       border-radius: 1rem;
-  
+
       &:hover {
         color: hsla(0, 0%, 96%, 1);
       }
     }
   }
-
-  
 }
 
 .modal-header {
@@ -85,16 +83,16 @@
   margin-bottom: 1rem;
 
   .modal-exit {
-     position: absolute;
-  right: 1rem;
-  top: 1rem;
-  outline: none;
-  border: none;
-  color: hsl(0, 100%, 50%);
-  background: none;
-  font-weight: bold;
-  font-size: 2rem;
-  cursor: pointer;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    outline: none;
+    border: none;
+    color: hsl(0, 100%, 50%);
+    background: none;
+    font-weight: bold;
+    font-size: 2rem;
+    cursor: pointer;
   }
 }
 

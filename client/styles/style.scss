@@ -3,49 +3,45 @@
 @import 'modal2';
 
 body {
-    background-color: hsl(0, 0%, 81%);
+  background-color: hsl(0, 0%, 81%);
 }
 
 h1 {
-    text-align: center;
-    padding: 2rem;
-    color: hsl(0, 0%, 31%);
+  text-align: center;
+  padding: 2rem;
+  color: hsl(0, 0%, 31%);
 }
 
 .menu-container {
-    margin: 2rem auto;
-    padding: 0 2rem;
-
+  margin: 2rem auto;
+  padding: 0 2rem;
 }
 
 .menu-content {
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(3, 1fr);
-    justify-items: center;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
 }
 
 .item-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: hsl(189, 27%, 60%);
-    box-shadow: 5px 10px 5px hsla(0, 0%, 20%, 0.318);
-    padding: 1.5rem;
-    border-radius: 0.5rem;
-    cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: hsl(189, 27%, 60%);
+  box-shadow: 5px 10px 5px hsla(0, 0%, 20%, 0.318);
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
 
-    h3 {
-        padding-bottom: 1rem;
-    }
+  h3 {
+    padding-bottom: 1rem;
+  }
 }
 
 img {
-    height: 15rem;
-    width: 20rem;
-    border-radius: 0.5rem;
+  height: 15rem;
+  width: 20rem;
+  border-radius: 0.5rem;
 }
-
-
-
