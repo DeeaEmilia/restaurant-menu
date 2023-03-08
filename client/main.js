@@ -34,7 +34,7 @@ async function openModal(itemId) {
   const modal = document.querySelector('.modal');
   modal.classList.add('open');
   // Add event listener to close the modal when clicking on the background or close button
-  const exitModal = document.querySelectorAll('.modal-exit');
+  const exitModal = modal.querySelectorAll('.modal-exit');
   exitModal.forEach((exit) => {
     exit.addEventListener('click', () => {
       modal.classList.remove('open');
@@ -54,16 +54,17 @@ function displayDetails(result) {
   const ingredients = document.querySelector('.modal-ingredients');
   const image = document.querySelector('.modal-image');
   const recipe = document.querySelector('.modal-recipe');
-  const btnDelete = document.querySelector('.btn-delete');
-  const btnEdit = document.querySelector('.btn-edit');
+
   // Set the content of the elements based on the details of the selected item
   name.innerHTML = result.name;
   ingredients.innerHTML = 'Ingrediente: ' + result.ingredients;
   image.src = result.image;
   recipe.innerHTML = 'Reteta: ' + result.recipe;
   // Add event listeners to the delete and edit buttons
+  const btnDelete = document.querySelector('.btn-delete');
+  const btnEdit = document.querySelector('.btn-edit');
   btnDelete.addEventListener('click', () => deleteItem(result.id));
-  btnEdit.addEventListener('click', () => editModal(result));
+  btnEdit.addEventListener('click', () => openEditModal(result));
 }
 
 async function deleteItem(itemId) {
@@ -78,57 +79,62 @@ async function deleteItem(itemId) {
   }
 }
 
-function editModal(result) {
-  // Get the modal element and add the "open" class to it
-  const modal = document.getElementById('modal-edit');
+function openEditModal(result) {
+  const modal = document.querySelector('.edit-modal');
   modal.classList.add('open');
 
-  // Get the form fields and set their values based on the details of the selected item
-  const nameInput = document.getElementById('edit-name');
-  const ingredientsInput = document.getElementById('edit-ingredients');
-  const imageInput = document.getElementById('edit-image');
-  const recipeInput = document.getElementById('edit-recipe');
-
-  // Set values of form fields based on result object
-  nameInput.value = result.name;
-  ingredientsInput.value = result.ingredients;
-  imageInput.value = result.image;
-  recipeInput.value = result.recipe;
-
-  // Get save and cancel buttons
-  const saveBtn = document.querySelector('.btn-save');
-
-  // Add event listener to save button
-  saveBtn.addEventListener('click', async () => {
-    // Create an updated item object with the new values from the form fields
-    const updatedItem = {
-      name: nameInput.value,
-      ingredients: ingredientsInput.value,
-      image: imageInput.value,
-      recipe: recipeInput.value,
-    };
-    // Make the PUT request to update the item in the server
-    await editItem(result.id, updatedItem);
-    // Hide the modal
-    modal.classList.remove('open');
-  });
-
-  // Add event listener to cancel button
-  const exitModal = document.querySelectorAll('.modal-exit');
+  const exitModal = modal.querySelectorAll('.modal-exit');
   exitModal.forEach((exit) => {
     exit.addEventListener('click', () => {
       modal.classList.remove('open');
     });
   });
+
+  displayEditDetails(result);
 }
 
-async function editItem(itemId, updatedItem) {
-  // Make the PUT request to update the item in the server
-  await fetch(`${SERVER_URL}/${itemId}`, {
+function displayEditDetails(result) {
+  const editName = document.querySelector('.edit-name');
+  const editIngredients = document.querySelector('.edit-ingredients');
+  const editImage = document.querySelector('.edit-image');
+  const editRecipe = document.querySelector('.edit-recipe');
+
+  if (result) {
+    editName.setAttribute('value', result.name);
+    editIngredients.setAttribute('value', result.ingredients);
+    editImage.setAttribute('value', result.image);
+    editRecipe.innerHTML = result.recipe;
+  }
+
+  document.querySelector('.btn-save').addEventListener('click', () => {
+    const editedItem = {
+      id: result?.id,
+      name: editName.value,
+      ingredients: editIngredients.value,
+      image: editImage.value,
+      recipe: editRecipe.value,
+    };
+
+    if (result) {
+      updateItem(editedItem);
+    } else {
+      addItem(editedItem);
+    }
+  });
+}
+
+async function updateItem(editedItem) {
+  await fetch(`${SERVER_URL}/${editedItem.id}`, {
     method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(updatedItem),
-  }).then(() => window.location.reload()); // Reload the page to reflect changes
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(editedItem),
+  }).then(() => window.location.reload());
+}
+
+async function addItem(addedItem) {
+  await fetch(SERVER_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(addedItem),
+  }).then(() => window.location.reload());
 }
