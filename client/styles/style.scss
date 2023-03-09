@@ -13,15 +13,16 @@ h1 {
 }
 
 .menu-container {
-  margin: 2rem auto;
-  padding: 0 2rem;
+  max-width: 70vw;
+  margin: 0 auto;
+  padding: 0 40px;
 }
 
 .menu-content {
   display: grid;
-  gap: 1rem;
   grid-template-columns: repeat(3, 1fr);
   justify-items: center;
+  gap: 16px;
 }
 
 .item-content {
@@ -29,32 +30,18 @@ h1 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: hsl(189, 27%, 60%);
-  box-shadow: 5px 10px 5px hsla(0, 0%, 20%, 0.318);
-  padding: 1.5rem;
-  border-radius: 0.5rem;
+  background-color: hsl(33, 100%, 88%);
+  box-shadow: 5px 10px 5px hsla(0, 0%, 20%, 0.305);
   cursor: pointer;
-
-  h3 {
-    padding-bottom: 1rem;
-  }
+  padding: 24px;
 }
 
 img {
-  height: 15rem;
-  width: 20rem;
-  border-radius: 0.5rem;
+  height: 250px;
+  width: 300px;
+  object-fit: cover;
 }
-button {
-  background-color: hsl(0, 0%, 24%);
-  color: hsla(0, 0%, 96%, 0.6);
-  margin: 0 0.25rem;
-  padding: 0.5rem 2rem;
-  cursor: pointer;
-  border: none;
-  border-radius: 1rem;
 
-  &:hover {
-    color: hsla(0, 0%, 96%, 1);
-  }
+button:hover {
+  color: hsl(0, 0%, 100%);
 }
